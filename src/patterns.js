@@ -1,364 +1,3 @@
-export const patterns = {
-  gateEighths: {
-    name: "8th Gate",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => (i % 2 === 0 ? "C3" : null)),
-  },
-  offBeat: {
-    name: "Off-Beat",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => (i % 2 === 1 ? "C3" : null)),
-  },
-  rolling: {
-    name: "Rolling 16ths",
-    pattern: Array(16).fill("C3"),
-  },
-
-  rank1: {
-    name: "Rank1",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i % 4 === 0) return "C3";
-        if (i % 4 === 1) return "G3";
-        return null;
-      }),
-  },
-  veraciousTrance: {
-    name: "Veracocha",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C3";
-        if (i === 3) return "E3";
-        if (i === 6) return "G3";
-        if (i === 9) return "E3";
-        if (i === 12) return "F3";
-        if (i === 15) return "G3";
-        return null;
-      }),
-  },
-  pushingGate: {
-    name: "Push Gate",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i % 4 === 0) return "C3";
-        if (i % 4 === 2) return "C3";
-        return null;
-      }),
-  },
-  gouryella: {
-    name: "Gouryella",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i % 8 === 0) return "C3";
-        if (i % 8 === 2) return "C3";
-        if (i % 8 === 4) return "G3";
-        if (i % 8 === 6) return "E3";
-        return null;
-      }),
-  },
-  octaveJump: {
-    name: "Oct Jump",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => (i % 2 === 0 ? "C3" : "C4")),
-  },
-  // New patterns
-  airwave: {
-    name: "Airwave",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C3";
-        if (i === 3) return "G3";
-        if (i === 6) return "A#3";
-        if (i === 9) return "G3";
-        if (i === 12) return "F3";
-        if (i === 15) return "G3";
-        return null;
-      }),
-  },
-  silkArp: {
-    name: "Silk",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C3";
-        if (i === 2) return "E3";
-        if (i === 4) return "G3";
-        if (i === 6) return "C4";
-        if (i === 8) return "G3";
-        if (i === 10) return "E3";
-        if (i === 12) return "C3";
-        if (i === 14) return "E3";
-        return null;
-      }),
-  },
-  ayla: {
-    name: "Ayla",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0 || i === 8) return "C3";
-        if (i === 4 || i === 12) return "G2";
-        if (i === 2 || i === 10) return "E2";
-        if (i === 6 || i === 14) return "F2";
-        return null;
-      }),
-  },
-  chicane: {
-    name: "Saltwater",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C3";
-        if (i === 2) return "G2";
-        if (i === 4) return "A#2";
-        if (i === 6) return "F3";
-        if (i === 8) return "G3";
-        if (i === 10) return "F3";
-        if (i === 12) return "D#3";
-        if (i === 14) return "C3";
-        return null;
-      }),
-  },
-  twoTribes: {
-    name: "2 Tribes",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i % 8 === 0) return "C3";
-        if (i % 8 === 2) return "C3";
-        if (i % 8 === 4) return "A#2";
-        if (i % 8 === 6) return "G2";
-        return null;
-      }),
-  },
-  outOfTheBlue: {
-    name: "OOTB",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0 || i === 8) return "C3";
-        if (i === 2 || i === 10) return "E3";
-        if (i === 4 || i === 12) return "F3";
-        if (i === 6 || i === 14) return "G3";
-        return null;
-      }),
-  },
-  spacemanid: {
-    name: "ID&T",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C3";
-        if (i === 4) return "C3";
-        if (i === 8) return "A#2";
-        if (i === 12) return "G2";
-        return null;
-      }),
-  },
-  // Basic Patterns
-  basic4: {
-    name: "4 on Floor",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => (i % 4 === 0 ? "C3" : null)),
-  },
-
-  // House & Techno Patterns
-  houseGroove: {
-    name: "House Groove",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C3";
-        if (i === 3) return "C3";
-        if (i === 6) return "C3";
-        if (i === 9) return "C3";
-        if (i === 12) return "C3";
-        return null;
-      }),
-  },
-  techWalk: {
-    name: "Tech Walk",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C3";
-        if (i === 4) return "D#3";
-        if (i === 8) return "D3";
-        if (i === 12) return "C3";
-        return null;
-      }),
-  },
-  acidLine: {
-    name: "Acid Line",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C3";
-        if (i === 2) return "C3";
-        if (i === 3) return "C#3";
-        if (i === 6) return "D3";
-        if (i === 8) return "D#3";
-        if (i === 10) return "D3";
-        if (i === 12) return "C#3";
-        if (i === 14) return "C3";
-        return null;
-      }),
-  },
-
-  // Garage & UK Bass Patterns
-  garage2Step: {
-    name: "2-Step",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0 || i === 8) return "C3";
-        if (i === 3 || i === 11) return "C3";
-        if (i === 6 || i === 14) return "C3";
-        return null;
-      }),
-  },
-  ukBass: {
-    name: "UK Bass",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C2";
-        if (i === 4) return "G2";
-        if (i === 7) return "F2";
-        if (i === 8) return "C2";
-        if (i === 12) return "G2";
-        if (i === 15) return "F2";
-        return null;
-      }),
-  },
-
-  // DnB & Breakbeat Patterns
-  dnbRoller: {
-    name: "DnB Roller",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C3";
-        if (i === 4) return "C3";
-        if (i === 7) return "G3";
-        if (i === 8) return "F3";
-        if (i === 10) return "E3";
-        if (i === 12) return "D3";
-        if (i === 14) return "C3";
-        return null;
-      }),
-  },
-  jumpUp: {
-    name: "Jump Up",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0 || i === 8) return "C3";
-        if (i === 2 || i === 10) return "G2";
-        if (i === 4 || i === 12) return "E2";
-        if (i === 6 || i === 14) return "C2";
-        return null;
-      }),
-  },
-
-  // Hip Hop & Trap Patterns
-  trapBoom: {
-    name: "Trap Boom",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0 || i === 7) return "C2";
-        if (i === 3 || i === 11) return "C2";
-        if (i === 14) return "C2";
-        return null;
-      }),
-  },
-  boombap: {
-    name: "Boom Bap",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0 || i === 8) return "C3";
-        if (i === 3 || i === 11) return "G3";
-        if (i === 6 || i === 14) return "E3";
-        return null;
-      }),
-  },
-
-  // Trance Patterns (keeping some of the existing ones)
-  systemF: {
-    name: "System F",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i % 4 === 0) return "C3";
-        if (i % 4 === 1) return "C3";
-        if (i % 4 === 2) return null;
-        return "C3";
-      }),
-  },
-  dutchTrance: {
-    name: "Dutch",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0 || i === 6) return "C3";
-        if (i === 2 || i === 8) return "G3";
-        if (i === 4) return "F3";
-        if (i === 10) return "A3";
-        return null;
-      }),
-  },
-
-  // Common Bass Patterns
-  walkingBass: {
-    name: "Walking",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i % 4 === 0) return "C3";
-        if (i % 4 === 1) return "E3";
-        if (i % 4 === 2) return "G3";
-        if (i % 4 === 3) return "A3";
-        return null;
-      }),
-  },
-  octaveGroove: {
-    name: "Oct Groove",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i % 8 === 0) return "C3";
-        if (i % 8 === 2) return "C4";
-        if (i % 8 === 4) return "G3";
-        if (i % 8 === 6) return "C3";
-        return null;
-      }),
-  },
-  syncopated: {
-    name: "Syncopated",
-    pattern: Array(16)
-      .fill()
-      .map((_, i) => {
-        if (i === 0) return "C3";
-        if (i === 3) return "C3";
-        if (i === 6) return "C3";
-        if (i === 10) return "C3";
-        if (i === 13) return "C3";
-        return null;
-      }),
-  },
-};
-
 // Basic Rhythmic Patterns
 export const basicPatterns = {
   basic4: {
@@ -428,10 +67,84 @@ export const basicPatterns = {
         return null;
       }),
   },
+  octaveGroove: {
+    name: "Oct Groove",
+    pattern: Array(16)
+      .fill()
+      .map((_, i) => {
+        if (i % 8 === 0) return "C3";
+        if (i % 8 === 2) return "C4";
+        if (i % 8 === 4) return "G3";
+        if (i % 8 === 6) return "C3";
+        return null;
+      }),
+  },
 };
 
 // Classic Trance Patterns
 export const trancePatterns = {
+  tranceRoller: {
+    name: "Trance Roll",
+    category: "Trance",
+    description: "Classic rolling trance bassline with three-note groups (xxx-xxx-xxx-xxx)",
+    pattern: Array(16)
+      .fill()
+      .map((_, i) => {
+        // Create groups of three notes with a gap
+        const groupPosition = i % 4; // Position within each group of 4 sixteenths
+        if (groupPosition > 0) {
+          // First three positions in each group are notes
+          return "C3";
+        }
+        return null; // Fourth position is a rest
+      }),
+  },
+  tranceRollerOct: {
+    name: "Trance Roll Oct",
+    category: "Trance",
+    description: "Rolling trance bassline with alternating octaves (high-low-high rest)",
+    pattern: Array(16)
+      .fill()
+      .map((_, i) => {
+        // Create groups of three notes with a gap
+        const groupPosition = i % 4; // Position within each group of 4 sixteenths
+        if (groupPosition === 1) return "C4"; // First note high
+        if (groupPosition === 2) return "C3"; // Second note low
+        if (groupPosition === 3) return "C4"; // Third note high
+        return null; // Fourth position is a rest
+      }),
+  },
+  tranceRollerOctAlt: {
+    name: "Trance Roll Oct Alternating",
+    category: "Trance",
+    description: "Rolling trance bassline with continuous octave alternation",
+    pattern: Array(16)
+      .fill()
+      .map((_, i) => {
+        // Create groups of three notes with a gap
+        const groupPosition = i % 4; // Position within each group
+        if (groupPosition > 0) {
+          // Skip every 4th position
+          // Count the actual note number (1-based) across the entire pattern
+          const noteNumber = Math.floor(i / 4) * 3 + (groupPosition - 1);
+          // Alternate between C3 and C4 based on the note number
+          return noteNumber % 2 === 0 ? "C3" : "C4";
+        }
+        return null; // Rest on every 4th position
+      }),
+  },
+  ayla: {
+    name: "Ayla",
+    pattern: Array(16)
+      .fill()
+      .map((_, i) => {
+        if (i === 0 || i === 8) return "C3";
+        if (i === 4 || i === 12) return "G2";
+        if (i === 2 || i === 10) return "E2";
+        if (i === 6 || i === 14) return "F2";
+        return null;
+      }),
+  },
   rank1: {
     name: "Rank 1 Style",
     category: "Trance",
