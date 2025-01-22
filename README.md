@@ -3,12 +3,12 @@
 [![Demo](https://img.shields.io/badge/Try-Demo-%23FADE6A.svg?style=for-the-badge)](https://basslines.vercel.app/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](LICENSE.md)
 [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
 [![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
 [Demo](https://basslines.vercel.app/) • [Report Bug](https://github.com/helgesverre/basslines/issues) • [Request Feature](https://github.com/helgesverre/basslines/issues)
 
-<img src="/api/placeholder/800/400" alt="Basslines Visualizer Interface" />
+<img src="/art/header.png" alt="Screenshot" />
 
 A simple step sequencer for visualizing and playing bassline patterns from various electronic music genres.
 
