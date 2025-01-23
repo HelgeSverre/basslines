@@ -260,7 +260,7 @@ const App = () => {
               type="text"
               readOnly
               value={getPatternString()}
-              className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 font-mono text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+              className="rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 font-mono text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 lg:w-96"
             />
           </div>
 
@@ -279,96 +279,15 @@ const App = () => {
         </div>
       </div>
 
-      {/* Controls Container */}
-      {/*<div className="mb-6 w-full">*/}
-      {/*  <div className="grid grid-cols-2 gap-4 sm:flex sm:flex-row sm:items-center sm:justify-between sm:gap-6">*/}
-      {/*    /!* Play Button *!/*/}
-      {/*    <div className="col-span-full flex items-center justify-center sm:justify-start">*/}
-      {/*      <button*/}
-      {/*        onClick={isPlaying ? stopPlayback : startPlayback}*/}
-      {/*        className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-600 text-white transition-colors hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-zinc-900"*/}
-      {/*      >*/}
-      {/*        {isPlaying ? <Square size={20} /> : <Play size={20} />}*/}
-      {/*      </button>*/}
-      {/*    </div>*/}
-
-      {/*    /!* BPM Control *!/*/}
-      {/*    <div className="flex flex-col items-center sm:items-start">*/}
-      {/*      <label className="mb-1 text-xs font-medium text-gray-400">BPM</label>*/}
-      {/*      <input*/}
-      {/*        type="number"*/}
-      {/*        value={bpm}*/}
-      {/*        onChange={(e) => setBpm(Number(e.target.value))}*/}
-      {/*        min="60"*/}
-      {/*        max="200"*/}
-      {/*        className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-2 py-1 text-sm text-gray-200 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 sm:w-24"*/}
-      {/*      />*/}
-      {/*    </div>*/}
-
-      {/*    /!* Waveform Selector *!/*/}
-      {/*    <div className="flex flex-col items-center sm:items-start">*/}
-      {/*      <label className="mb-1 text-xs font-medium text-gray-400">Waveform</label>*/}
-      {/*      <select*/}
-      {/*        value={selectedWaveform}*/}
-      {/*        onChange={(e) => setSelectedWaveform(e.target.value)}*/}
-      {/*        className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-2 py-1 text-sm text-gray-200 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 sm:max-w-[200px]"*/}
-      {/*      >*/}
-      {/*        <option value="sawtooth">Sawtooth</option>*/}
-      {/*        <option value="square">Square</option>*/}
-      {/*        <option value="triangle">Triangle</option>*/}
-      {/*        <option value="sine">Sine</option>*/}
-      {/*      </select>*/}
-      {/*    </div>*/}
-
-      {/*    /!* Pattern Selector *!/*/}
-      {/*    <div className="flex flex-col items-center sm:items-start">*/}
-      {/*      <label className="mb-1 text-xs font-medium text-gray-400">Pattern</label>*/}
-      {/*      <select*/}
-      {/*        value={selectedPattern}*/}
-      {/*        onChange={(e) => setSelectedPattern(e.target.value)}*/}
-      {/*        className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-2 py-1 text-sm text-gray-200 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 sm:max-w-[200px]"*/}
-      {/*      >*/}
-      {/*        {Object.entries(allPatterns).map(([key, value]) => (*/}
-      {/*          <option key={key} value={key}>*/}
-      {/*            {value.name}*/}
-      {/*          </option>*/}
-      {/*        ))}*/}
-      {/*      </select>*/}
-      {/*    </div>*/}
-
-      {/*    /!* Pattern String Display *!/*/}
-      {/*    <div className="flex flex-1 flex-col items-center sm:items-start">*/}
-      {/*      <label className="mb-1 text-xs font-medium text-gray-400">Pattern String</label>*/}
-      {/*      <input*/}
-      {/*        type="text"*/}
-      {/*        readOnly*/}
-      {/*        value={getPatternString()}*/}
-      {/*        className="w-full max-w-xl rounded-md border border-zinc-700 bg-zinc-800 px-2 py-1 font-mono text-sm text-gray-200 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"*/}
-      {/*      />*/}
-      {/*    </div>*/}
-
-      {/*    <div className="flex flex-col items-center sm:items-start">*/}
-      {/*      <label className="mb-1 text-xs font-medium text-gray-400">MIDI</label>*/}
-      {/*      <button*/}
-      {/*        title={"Download Pattern as MIDI"}*/}
-      {/*        onClick={downloadPatternAsMidi}*/}
-      {/*        className="w-full max-w-xl rounded-md border border-zinc-700 bg-zinc-800 bg-zinc-900/50 p-2 font-mono text-sm text-gray-200 transition-colors hover:bg-cyan-600/10 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"*/}
-      {/*      >*/}
-      {/*        <HardDriveDownload size={12} />*/}
-      {/*      </button>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-
       {/* Grid Section */}
       <div className="flex-1 overflow-auto rounded-md border border-zinc-700 bg-zinc-900/50">
         <table className="w-full border-separate border-spacing-0">
           <thead>
             <tr className="border-b border-zinc-700 bg-zinc-800">
-              <th className="top-0 border-b border-b-zinc-800 bg-zinc-900 px-2 py-2 text-left text-xs font-medium text-gray-400">
+              <th className="top-0 border-b border-b-zinc-800 bg-zinc-900 px-2 py-2 text-left text-xs font-medium text-gray-400 max-w-10">
                 <label className="flex items-center space-x-3">
                   <button className="text-gray-300 hover:text-cyan-500" onClick={() => setHideUnused((prev) => !prev)}>
-                    {hideUnused ? "Show All" : "Hide Unused"}
+                    {hideUnused ? "Unfold" : "Fold"}
                   </button>
                 </label>
               </th>
@@ -385,7 +304,9 @@ const App = () => {
                 ))}
             </tr>
             <tr>
-              <th className="sticky top-0 bg-zinc-900 px-2 py-2 text-left text-xs font-medium text-gray-400">Note</th>
+              <th className="sticky top-0 bg-zinc-900 px-2 py-2 text-left text-xs font-medium text-gray-400">
+                <div className={"max-w-10"}>Note</div>
+              </th>
               {Array(16)
                 .fill()
                 .map((_, i) => (
@@ -410,7 +331,9 @@ const App = () => {
                 if (hideUnused && !isNoteUsedInPattern(note)) return null;
                 return (
                   <tr key={note} className="border-b border-zinc-800/30 duration-100 ease-in-out hover:bg-cyan-600/10">
-                    <td className={"border-t border-zinc-800 px-2 py-1 font-mono text-xs text-gray-400"}>{note}</td>
+                    <td className={"border-t border-zinc-800 px-2 py-1 font-mono text-xs max-w-10 text-gray-400"}>
+                      <div className={"max-w-10"}>{note}</div>
+                    </td>
                     {Array(16)
                       .fill()
                       .map((_, step) => (
@@ -437,7 +360,8 @@ const App = () => {
           </tbody>
           <tfoot>
             <tr>
-              <td className="border-t border-zinc-800" colSpan={17}></td>
+              <td className="max-w-10 border-t border-zinc-800"></td>
+              <td className="border-t border-zinc-800" colSpan={16}></td>
             </tr>
           </tfoot>
         </table>
