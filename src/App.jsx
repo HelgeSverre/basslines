@@ -1,7 +1,7 @@
 // noinspection SpellCheckingInspection,JSCheckFunctionSignatures,JSUnusedLocalSymbols,JSValidateTypes
 
 import { useEffect, useRef, useState } from "react";
-import { Midi } from "@tonejs/midi"; // Import Tone.js MIDI
+import { Midi } from "@tonejs/midi";
 import { frequencyToMidiNote, notes, noteToFreq } from "./utils.js";
 import { allPatterns } from "./patterns.js";
 import { HardDriveDownload, Play, Square } from "lucide-react";
