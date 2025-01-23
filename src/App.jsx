@@ -4,17 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Midi } from "@tonejs/midi";
 import { frequencyToMidiNote, notes, noteToFreq } from "./utils.js";
 import { allPatterns } from "./patterns.js";
-import {
-  Clipboard,
-  ClipboardCopy,
-  HardDriveDownload,
-  ListCollapse,
-  ListTree,
-  PencilLine,
-  Play,
-  Square,
-  Syringe,
-} from "lucide-react";
+import { HardDriveDownload, ListCollapse, ListTree, Play, Square } from "lucide-react";
 import classNames from "classnames";
 
 const usePersistedState = (key, initialValue) => {
@@ -243,30 +233,41 @@ const App = () => {
             onChange={(e) => setBpm(Number(e.target.value))}
             min="60"
             max="200"
-            className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+            className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
           />
         </div>
 
         {/* Waveform Selector */}
-        <div className="flex flex-col">
+        <div className="relative flex flex-col">
           <select
             value={selectedWaveform}
             onChange={(e) => setSelectedWaveform(e.target.value)}
-            className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+            className="h-10 w-full appearance-none rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 pr-12 text-sm text-gray-200 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
           >
             <option value="sawtooth">Sawtooth</option>
             <option value="square">Square</option>
             <option value="triangle">Triangle</option>
             <option value="sine">Sine</option>
           </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+            <svg
+              className="size-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
         </div>
 
         {/* Pattern Selector */}
-        <div className="flex flex-col">
+        <div className="relative flex flex-col">
           <select
             value={selectedPattern}
             onChange={(e) => setSelectedPattern(e.target.value)}
-            className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+            className="h-10 w-full appearance-none rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 pr-12 text-sm text-gray-200 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
           >
             {Object.entries(allPatterns).map(([key, value]) => (
               <option key={key} value={key}>
@@ -274,6 +275,17 @@ const App = () => {
               </option>
             ))}
           </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+            <svg
+              className="size-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
         </div>
 
         {/* Download MIDI Button */}
@@ -283,7 +295,7 @@ const App = () => {
             onClick={downloadPatternAsMidi}
             className="flex h-10 items-center justify-center rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 transition hover:bg-cyan-700/20 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
           >
-            <HardDriveDownload className="mr-2" size={16} />
+            <HardDriveDownload className="mr-2" size={14} />
             <span>Download</span>
           </button>
         </div>
@@ -294,7 +306,18 @@ const App = () => {
         <table className="w-full border-separate border-spacing-0">
           <thead className="sticky inset-x-0 top-0">
             <tr className="border-b border-zinc-700 bg-zinc-800">
-              <th className="top-0 max-w-10 border-b border-b-zinc-800 bg-zinc-900 px-2 py-2 text-left text-xs font-medium text-gray-400"></th>
+              <th className="border-b border-b-zinc-800 bg-zinc-900/95 px-2 py-2 text-left text-xs font-medium text-gray-400">
+                <label className="flex items-center space-x-3">
+                  <button
+                    className="flex items-center justify-center gap-2 text-gray-400 hover:text-cyan-500 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                    onClick={() => setHideUnused((prev) => !prev)}
+                  >
+                    {hideUnused ? <ListCollapse size={14} /> : <ListTree size={14} />}
+                    <span className="text-xs">{hideUnused ? "Unfold" : "Fold"}</span>
+                  </button>
+                </label>
+              </th>
+
               {Array(16 / 4)
                 .fill()
                 .map((_, i) => (
