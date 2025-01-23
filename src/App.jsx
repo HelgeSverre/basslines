@@ -4,15 +4,46 @@ import { useEffect, useRef, useState } from "react";
 import { Midi } from "@tonejs/midi";
 import { frequencyToMidiNote, notes, noteToFreq } from "./utils.js";
 import { allPatterns } from "./patterns.js";
-import { HardDriveDownload, Play, Square } from "lucide-react";
+import {
+  Clipboard,
+  ClipboardCopy,
+  HardDriveDownload,
+  ListCollapse,
+  ListTree,
+  PencilLine,
+  Play,
+  Square,
+  Syringe,
+} from "lucide-react";
 import classNames from "classnames";
 
+const usePersistedState = (key, initialValue) => {
+  const [state, setState] = useState(() => {
+    const storedValue = localStorage.getItem(key);
+    if (storedValue !== null) {
+      try {
+        return JSON.parse(storedValue);
+      } catch {
+        return storedValue; // Handle non-JSON values
+      }
+    }
+    return initialValue;
+  });
+
+  useEffect(() => {
+    localStorage.setItem(key, typeof state === "object" ? JSON.stringify(state) : state);
+  }, [key, state]);
+
+  return [state, setState];
+};
+
 const App = () => {
-  const [selectedPattern, setSelectedPattern] = useState("offBeat");
-  const [selectedWaveform, setSelectedWaveform] = useState("sawtooth");
+  const [selectedPattern, setSelectedPattern] = usePersistedState("selectedPattern", "offBeat");
+  const [selectedWaveform, setSelectedWaveform] = usePersistedState("selectedWaveform", "sawtooth");
+  const [bpm, setBpm] = usePersistedState("bpm", 138);
+
   const [hideUnused, setHideUnused] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [bpm, setBpm] = useState(138);
   const [currentStep, setCurrentStep] = useState(-1);
 
   const audioContextRef = useRef(null);
@@ -185,10 +216,6 @@ const App = () => {
     return allPatterns[selectedPattern].pattern[step] === note;
   };
 
-  const isBlackKey = (note) => note.includes("#");
-
-  const isWhiteKey = (note) => !isBlackKey(note);
-
   // Generates a string based on the current pattern
   // ex: "x-C3-x-C3-x-C3-x-C3-x-C3-x-C3-x-C3-x-C3"
   const getPatternString = () => {
@@ -196,101 +223,78 @@ const App = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col gap-6 bg-gradient-to-b from-zinc-900 to-zinc-950 p-4 text-gray-100">
-      <div className="w-full">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:items-center lg:grid-cols-8">
-          {/* Play/Pause Button */}
-          <div className="flex items-center justify-start">
-            <button
-              onClick={isPlaying ? stopPlayback : startPlayback}
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-600 text-white transition hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-zinc-900"
-            >
-              {isPlaying ? <Square size={20} /> : <Play size={20} />}
-            </button>
-          </div>
+    <div className="flex h-screen flex-col bg-gradient-to-b from-zinc-900 to-zinc-950 text-gray-100">
+      <div className="grid grid-cols-2 flex-row gap-3 p-4 pb-0 sm:grid-cols-3 md:flex lg:grid-cols-8 lg:items-start">
+        {/* Play/Pause Button */}
+        <div className="fixed bottom-2 right-2 mr-auto flex items-center justify-center lg:relative">
+          <button
+            onClick={isPlaying ? stopPlayback : startPlayback}
+            className="flex size-14 items-center justify-center rounded-full bg-cyan-600 text-white shadow-xl transition hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-zinc-900 md:size-12"
+          >
+            {isPlaying ? <Square fill={"currentColor"} size={20} /> : <Play fill={"currentColor"} size={20} />}
+          </button>
+        </div>
 
-          {/* BPM Control */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-sm font-medium text-gray-400">BPM</label>
-            <input
-              type="number"
-              value={bpm}
-              onChange={(e) => setBpm(Number(e.target.value))}
-              min="60"
-              max="200"
-              className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
-            />
-          </div>
+        {/* BPM Control */}
+        <div className="flex flex-col">
+          <input
+            type="number"
+            value={bpm}
+            onChange={(e) => setBpm(Number(e.target.value))}
+            min="60"
+            max="200"
+            className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+          />
+        </div>
 
-          {/* Waveform Selector */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-sm font-medium text-gray-400">Waveform</label>
-            <select
-              value={selectedWaveform}
-              onChange={(e) => setSelectedWaveform(e.target.value)}
-              className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
-            >
-              <option value="sawtooth">Sawtooth</option>
-              <option value="square">Square</option>
-              <option value="triangle">Triangle</option>
-              <option value="sine">Sine</option>
-            </select>
-          </div>
+        {/* Waveform Selector */}
+        <div className="flex flex-col">
+          <select
+            value={selectedWaveform}
+            onChange={(e) => setSelectedWaveform(e.target.value)}
+            className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+          >
+            <option value="sawtooth">Sawtooth</option>
+            <option value="square">Square</option>
+            <option value="triangle">Triangle</option>
+            <option value="sine">Sine</option>
+          </select>
+        </div>
 
-          {/* Pattern Selector */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-sm font-medium text-gray-400">Pattern</label>
-            <select
-              value={selectedPattern}
-              onChange={(e) => setSelectedPattern(e.target.value)}
-              className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
-            >
-              {Object.entries(allPatterns).map(([key, value]) => (
-                <option key={key} value={key}>
-                  {value.name}
-                </option>
-              ))}
-            </select>
-          </div>
+        {/* Pattern Selector */}
+        <div className="flex flex-col">
+          <select
+            value={selectedPattern}
+            onChange={(e) => setSelectedPattern(e.target.value)}
+            className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+          >
+            {Object.entries(allPatterns).map(([key, value]) => (
+              <option key={key} value={key}>
+                {value.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          {/* Pattern String Display */}
-          <div className="col-span-full flex flex-col sm:col-span-2 lg:col-span-3">
-            <label className="mb-1 text-sm font-medium text-gray-400">Pattern String</label>
-            <input
-              type="text"
-              readOnly
-              value={getPatternString()}
-              className="rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 font-mono text-sm text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 lg:w-96"
-            />
-          </div>
-
-          {/* Download MIDI Button */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-sm font-medium text-gray-400">Export MIDI</label>
-            <button
-              title="Download Pattern as MIDI"
-              onClick={downloadPatternAsMidi}
-              className="flex items-center justify-center rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 transition hover:bg-cyan-700/20 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
-            >
-              <HardDriveDownload className="mr-2" size={16} />
-              Download
-            </button>
-          </div>
+        {/* Download MIDI Button */}
+        <div className="flex flex-col">
+          <button
+            title="Download Pattern as MIDI"
+            onClick={downloadPatternAsMidi}
+            className="flex h-10 items-center justify-center rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-gray-200 transition hover:bg-cyan-700/20 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+          >
+            <HardDriveDownload className="mr-2" size={16} />
+            <span>Download</span>
+          </button>
         </div>
       </div>
 
       {/* Grid Section */}
-      <div className="flex-1 overflow-auto rounded-md border border-zinc-700 bg-zinc-900/50">
+      <div className="m-4 flex-1 overflow-auto rounded-md border border-zinc-700 bg-zinc-900/50">
         <table className="w-full border-separate border-spacing-0">
-          <thead>
+          <thead className="sticky inset-x-0 top-0">
             <tr className="border-b border-zinc-700 bg-zinc-800">
-              <th className="top-0 border-b border-b-zinc-800 bg-zinc-900 px-2 py-2 text-left text-xs font-medium text-gray-400 max-w-10">
-                <label className="flex items-center space-x-3">
-                  <button className="text-gray-300 hover:text-cyan-500" onClick={() => setHideUnused((prev) => !prev)}>
-                    {hideUnused ? "Unfold" : "Fold"}
-                  </button>
-                </label>
-              </th>
+              <th className="top-0 max-w-10 border-b border-b-zinc-800 bg-zinc-900 px-2 py-2 text-left text-xs font-medium text-gray-400"></th>
               {Array(16 / 4)
                 .fill()
                 .map((_, i) => (
@@ -331,7 +335,7 @@ const App = () => {
                 if (hideUnused && !isNoteUsedInPattern(note)) return null;
                 return (
                   <tr key={note} className="border-b border-zinc-800/30 duration-100 ease-in-out hover:bg-cyan-600/10">
-                    <td className={"border-t border-zinc-800 px-2 py-1 font-mono text-xs max-w-10 text-gray-400"}>
+                    <td className={"max-w-10 border-t border-zinc-800 px-2 py-1 font-mono text-xs text-gray-400"}>
                       <div className={"max-w-10"}>{note}</div>
                     </td>
                     {Array(16)
