@@ -1,5 +1,41 @@
 // Basic Rhythmic Patterns
 export const basicPatterns = {
+  testDescending: {
+    name: "Test: All notes descending",
+    category: "Test",
+    description: "",
+    pattern: [
+      "B3",
+      "A#3",
+      "A3",
+      "G#3",
+      "G3",
+      "F#3",
+      "F3",
+      "E3",
+      "D#3",
+      "D3",
+      "C#3",
+      "C3",
+      "B2",
+      "A#2",
+      "A2",
+      "G#2",
+      "G2",
+    ],
+  },
+  testAscending: {
+    name: "Test: All notes ascending",
+    category: "Test",
+    description: "",
+    pattern: ["B3", "A#3", "A3", "G3", "F3", "E3", "D3", "C3", "B2", "A2", "G2"].toReversed(),
+  },
+  blackNotes: {
+    name: "Test: All black notes",
+    category: "Test",
+    description: "",
+    pattern: ["C#3", "D#3", "F#3", "G#3", "A#3", "C#4", "D#4", "F#4", "G#4", "A#4", "C#5"].toReversed(),
+  },
   basic4: {
     name: "Four-to-the-Floor",
     category: "Basic",
